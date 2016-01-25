@@ -207,7 +207,7 @@
 
 + (NSString *)filePickerLocationWithOptionalSecurityFor:(NSString *)filePickerLocation
 {
-    if (fpAPPSECURITYPOLICY)
+    if (fpAPPSECURITYPOLICY && fpAPPSECURITYSIGNATURE)
     {
         NSString *handle = [[NSURL URLWithString:filePickerLocation] lastPathComponent];
 

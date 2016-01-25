@@ -26,10 +26,9 @@
 
 - (void)populateSecurityPropertiesFromConfig
 {
-    if (fpAPPSECURITYPOLICY)
+    if (fpAPPSECURITYPOLICY && fpAPPSECURITYSIGNATURE)
     {
         NSString *securityPolicy = fpAPPSECURITYPOLICY;
-
         NSString *securitySignature = fpAPPSECURITYSIGNATURE;
         self.securityPolicy = securityPolicy;
         self.securitySignature = securitySignature;
