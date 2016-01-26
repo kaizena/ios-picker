@@ -372,16 +372,6 @@
                                                                     action:@selector(cancel:)];
 
     self.navigationItem.leftBarButtonItem = cancelButton;
-
-    UIButton *infoButton = [UIButton buttonWithType:UIButtonTypeInfoLight];
-
-    [infoButton addTarget:self
-                   action:@selector(displayInfo:)
-         forControlEvents:UIControlEventTouchUpInside];
-
-    infoButton.contentEdgeInsets = UIEdgeInsetsMake(0, -10, 0, 10);
-
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:infoButton];
 }
 
 - (NSArray *)filterSourceList
@@ -458,7 +448,7 @@
 
     if (!self.title)
     {
-        [self setTitle:@"Filepicker.io"];
+        [self setTitle:@"Add a File"];
     }
     else
     {
