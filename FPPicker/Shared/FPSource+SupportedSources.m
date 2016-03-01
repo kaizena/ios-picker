@@ -355,4 +355,45 @@
     return [sources copy];
 }
 
++ (void)logoutFromSource:(FPSource *)source completionHandler:(void (^)(bool)) completionHandler {
+    NSString *urlString = [NSString stringWithFormat:@"%@/api/client/%@/unauth", fpBASE_URL, source.identifier];
+
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]
+                                             cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
+                                         timeoutInterval:240];
+
+    AFRequestOperationSuccessBlock successOperationBlock = ^(AFHTTPRequestOperation *operation,
+                                                             id responseObject) {
+        NSForceLog(@"Logout result: %@", responseObject);
+
+        NSHTTPCookieStorage *cookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+
+        for (NSString *urlString in source.externalDomains)
+        {
+            NSArray *siteCookies;
+            siteCookies = [cookieStorage cookiesForURL:[NSURL URLWithString:urlString]];
+
+            for (NSHTTPCookie *cookie in siteCookies)
+            {
+                [cookieStorage deleteCookie:cookie];
+            }
+        }
+
+        completionHandler(true);
+    };
+
+    AFRequestOperationFailureBlock failureOperationBlock = ^(AFHTTPRequestOperation *operation,
+                                                             NSError *error) {
+        completionHandler(false);
+    };
+
+    AFHTTPRequestOperation *operation;
+
+    operation = [[FPAPIClient sharedClient] HTTPRequestOperationWithRequest:request
+                                                                    success:successOperationBlock
+                                                                    failure:failureOperationBlock];
+
+    [[[FPAPIClient sharedClient] operationQueue] addOperation: operation];
+}
+
 @end
