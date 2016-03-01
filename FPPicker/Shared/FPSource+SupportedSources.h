@@ -21,4 +21,6 @@
 - (instancetype)initWithSourceIdentifier:(NSString *)identifier;
 + (FPSource *)sourceWithIdentifier:(NSString *)identifier;
 
++ (void)logoutFromSource:(FPSource *)source completionHandler:(void (^)(bool)) completionHandler;
+
 @end

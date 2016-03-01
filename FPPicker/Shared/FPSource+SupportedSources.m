@@ -8,6 +8,7 @@
 
 #import "FPSource+SupportedSources.h"
 #import "FPConstants.h"
+#import "FPInternalHeaders.h"
 
 @implementation FPSource (SupportedSources)
 
